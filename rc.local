@@ -1,0 +1,16 @@
+# Add to the /etc/rc.local file
+# before the last line (exit 0)
+
+# Play Startup Chime
+# edit with the custom card,device numbers according whith the aplay -l command output.
+
+# /usr/bin/aplay /home/pi/garrax-daemon/sounds/TJBotStartup.wav -D plughw:<card>,<device>
+
+/usr/bin/aplay /home/pi/garrax-daemon/sounds/TJBotStartup.wav -D plughw:0,0
+
+# TJBot daemon
+echo -e 'discoverable on \nquit' | /usr/bin/bluetoothctl
+sleep 5
+cd /home/pi/garrax-daemon
+/usr/bin/nohup /usr/local/bin/node /home/pi/garrax-daemon/garrax-daemon.js 2> /tmp/garrax_error.log &
+
